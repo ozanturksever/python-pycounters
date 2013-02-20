@@ -216,7 +216,10 @@ class CollectingLeader(object):
         with self.lock:
             for node in self.node_proxies.itervalues():
                 self.debug_log.debug("Closing proxy for %s", node.id)
-                node.close()
+                try:
+                    node.close()
+                except:
+                    pass
 
             self.node_proxies = {}
 
