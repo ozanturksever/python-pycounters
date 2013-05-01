@@ -216,7 +216,10 @@ class CollectingLeader(object):
         with self.lock:
             for node in self.node_proxies.itervalues():
                 self.debug_log.debug("Closing proxy for %s", node.id)
-                node.close()
+                try:
+                    node.close()
+                except:
+                    pass
 
             self.node_proxies = {}
 
@@ -250,7 +253,10 @@ class CollectingLeader(object):
                     ret[node.id] = node.send_and_receive("collect")
                 except IOError as e:
                     self.debug_log.warning("Get an error when sending to node %s:\nerror:%s", node.id, e)
-                    node.close()
+                    try:
+                        node.close()
+                    except:
+                        pass
                     error_nodes.append(node.id)
 
             for err_node in error_nodes:

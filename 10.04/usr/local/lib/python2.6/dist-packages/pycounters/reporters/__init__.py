@@ -23,7 +23,7 @@ class LogReporter(BaseReporter):
 
         for k, v in logs:
             if not (k.startswith("__") and k.endswith("__")):   # don't output __node_reports__ etc.
-                self.logger.info("%s %s", k, v)
+                self.logger.info("%s %s" % (k, v))
 
 
 class JSONFileReporter(BaseReporter):
